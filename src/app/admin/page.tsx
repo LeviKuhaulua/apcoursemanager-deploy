@@ -1,7 +1,7 @@
 import { getServerSession } from 'next-auth';
 import { Col, Container, Row, Table } from 'react-bootstrap';
-import StuffItemAdmin from '@/components/StuffItemAdmin';
-import { prisma } from '@/lib/prisma';
+// import StuffItemAdmin from '@/components/StuffItemAdmin';
+// import { prisma } from '@/lib/prisma';
 import { adminProtectedPage } from '@/lib/page-protection';
 import authOptions from '@/lib/authOptions';
 
@@ -12,8 +12,8 @@ const AdminPage = async () => {
       user: { email: string; id: string; randomKey: string };
     } | null,
   );
-  const stuff = await prisma.stuff.findMany({});
-  const users = await prisma.user.findMany({});
+  // const stuff = await prisma.stuff.findMany({});
+  // const users = await prisma.user.findMany({});
 
   return (
     <main>
@@ -32,9 +32,7 @@ const AdminPage = async () => {
                 </tr>
               </thead>
               <tbody>
-                {stuff.map((item) => (
-                  <StuffItemAdmin key={item.id} {...item} />
-                ))}
+                <h1>Admin Page Here</h1>
               </tbody>
             </Table>
           </Col>
@@ -50,12 +48,7 @@ const AdminPage = async () => {
                 </tr>
               </thead>
               <tbody>
-                {users.map((user) => (
-                  <tr key={user.id}>
-                    <td>{user.email}</td>
-                    <td>{user.role}</td>
-                  </tr>
-                ))}
+                <h1>More Admin Stuff</h1>
               </tbody>
             </Table>
           </Col>
