@@ -1,7 +1,7 @@
 import { getServerSession } from 'next-auth';
 import { Col, Container, Row, Table } from 'react-bootstrap';
-import { prisma } from '@/lib/prisma';
-import StuffItem from '@/components/StuffItem';
+// import { prisma } from '@/lib/prisma';
+// import StuffItem from '@/components/StuffItem';
 import { loggedInProtectedPage } from '@/lib/page-protection';
 import authOptions from '@/lib/authOptions';
 
@@ -15,12 +15,12 @@ const ListPage = async () => {
       // eslint-disable-next-line @typescript-eslint/comma-dangle
     } | null,
   );
-  const owner = (session && session.user && session.user.email) || '';
-  const stuff = await prisma.stuff.findMany({
-    where: {
-      owner,
-    },
-  });
+  // const owner = (session && session.user && session.user.email) || '';
+  // const stuff = await prisma.stuff.findMany({
+  //   where: {
+  //     owner,
+  //   },
+  // });
   // console.log(stuff);
   return (
     <main>
@@ -38,9 +38,10 @@ const ListPage = async () => {
                 </tr>
               </thead>
               <tbody>
-                {stuff.map((item) => (
+                <h1>List Items Here</h1>
+                {/* {stuff.map((item) => (
                   <StuffItem key={item.id} {...item} />
-                ))}
+                ))} */}
               </tbody>
             </Table>
           </Col>
