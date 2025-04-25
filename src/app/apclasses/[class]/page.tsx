@@ -1,18 +1,16 @@
 import { notFound } from 'next/navigation';
-import { PrismaClient } from '@/lib/prisma';
-
-const prisma = new PrismaClient();
+import { prisma } from '@/lib/prisma';
 
 type Props = {
   params: {
-    name: string;
+    class: string;
   };
 };
 
 export default async function APClassDetailPage({ params }: Props) {
-  const classItem = await prisma.aPClass.findFirst({
+  const classItem = await prisma.aPClass.findUnique({
     where: {
-      name: params.name,
+      id: Number(params.class),
     },
     select: {
       name: true,
@@ -40,8 +38,23 @@ export default async function APClassDetailPage({ params }: Props) {
   if (!classItem) return notFound();
 
   return (
-    <div style={{ padding: '40px', maxWidth: '600px', margin: 'auto' }}>
+    <div
+      style={{
+        padding: '40px',
+        maxWidth: '600px',
+        margin: 'auto',
+        backgroundColor: 'white',
+        borderRadius: '8px',
+        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+      }}
+    >
       <h1>{classItem.name.replace('-', ' ').toUpperCase()}</h1>
+      <hr />
+      <p>
+        <strong>Subject:</strong>
+        {' '}
+        {classItem.subject.name}
+      </p>
       <p>
         <strong>Description:</strong>
         {' '}
@@ -54,11 +67,6 @@ export default async function APClassDetailPage({ params }: Props) {
           {classItem.resources}
         </p>
       )}
-      <p>
-        <strong>Subject:</strong>
-        {' '}
-        {classItem.subject.name}
-      </p>
       <p>
         <strong>Teacher:</strong>
         {' '}
@@ -74,16 +82,14 @@ export default async function APClassDetailPage({ params }: Props) {
       <p>
         <strong>Grade Levels:</strong>
         {' '}
-        {classItem.gradeLevels.map(g => g.level).join(', ')}
+        {classItem.gradeLevels.map((g) => g.level).join(', ')}
       </p>
       <p>
         <strong>Prerequisites:</strong>
         {' '}
-        {
-        classItem.prerequisites.length > 0
-          ? classItem.prerequisites.map(p => p.name).join(', ')
-          : 'None'
-      }
+        {classItem.prerequisites.length > 0
+          ? classItem.prerequisites.map((p) => p.name).join(', ')
+          : 'None'}
       </p>
     </div>
   );
