@@ -53,11 +53,14 @@ const SignUp = () => {
     try {
       await createUser(data);
       await signIn('credentials', { callbackUrl: '/', ...data });
+      await signIn('credentials', { callbackUrl: '/', ...data });
       setIsError(undefined);
     } catch (err) {
       if ((err as unknown as Error).message.includes('Classes or null prototypes are not supported')) {
         setIsError(
-          new Error('You are not an authorized user. Please contact a site admin if you believe this is a mistake'),
+          new Error(
+            'You are not an authorized user. Please contact a site admin if you believe this is a mistake',
+          ),
         );
       } else {
         setIsError(err as Error);
