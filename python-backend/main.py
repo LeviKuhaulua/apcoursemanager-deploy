@@ -21,7 +21,7 @@ app = FastAPI(title="AP Recommendation Service")
 # allow the React/Next.js origin to hit your endpoints
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],  # your front-end URL
+    allow_origins=["http://localhost:3000", "https://apcoursemanager.vercel.app"],  # your front-end URL
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
