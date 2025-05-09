@@ -4,7 +4,7 @@ test.use({ storageState: 'admin-auth.json' });
 
 test.describe('CRUD-subjects Page Acceptance Tests', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('http://localhost:3000/CRUD-Subjects');
+    await page.goto('https://apcoursemanager.vercel.app/CRUD-Subjects');
   });
 
   test('should load the subjects page', async ({ page }) => {

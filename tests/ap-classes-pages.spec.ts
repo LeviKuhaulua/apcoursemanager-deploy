@@ -5,7 +5,7 @@ test.use({
 });
 
 test('AP Classes page and cards are visible', async ({ page }) => {
-  await page.goto('http://localhost:3000/apclasses');
+  await page.goto('https://apcoursemanager.vercel.app/apclasses');
 
   // Locate the cards
   const cards = page.locator('.card');

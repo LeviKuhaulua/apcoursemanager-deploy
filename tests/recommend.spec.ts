@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 test.describe('AP Recommendation Page', () => {
   test.beforeEach(async ({ page }) => {
     // maybe reset your test DB here, e.g. via API call
-    await page.goto('http://localhost:3000/recommendation');
+    await page.goto('https://apcoursemanager.vercel.app/recommendation');
   });
 
   test('submitting interests yields recommendations', async ({ page }) => {
