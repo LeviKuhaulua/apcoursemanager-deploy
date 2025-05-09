@@ -40,14 +40,14 @@ export default function RecommendationFormPage() {
       setError('Please enter at least one interest.');
       return;
     }
-    if (isNaN(gpaNum)) { // Use Number.isNaN for robust NaN check
+    if (Number.isNaN(gpaNum)) {
       setError('Please enter a valid GPA.');
       return;
     }
     // Optional: Add more GPA validation (e.g., range)
     if (gpaNum < 0 || gpaNum > 5.0) { // Example range
-        setError('Please enter a GPA between 0.0 and 5.0.');
-        return;
+      setError('Please enter a GPA between 0.0 and 5.0.');
+      return;
     }
 
     setLoading(true);
@@ -75,17 +75,16 @@ export default function RecommendationFormPage() {
         // Try to get more details from the error response if possible
         let errorDetail = `Recommendation service error: ${recResp.status} ${recResp.statusText}`;
         try {
-            const errBody = await recResp.json(); // or .text() if not JSON
-            errorDetail += ` - ${errBody?.detail || JSON.stringify(errBody)}`;
+          const errBody = await recResp.json(); // or .text() if not JSON
+          errorDetail += ` - ${errBody?.detail || JSON.stringify(errBody)}`;
         } catch (parseError) {
-            // ignore if can't parse error body
+          // ignore if can't parse error body
         }
         throw new Error(errorDetail);
       }
       const recs: string[] = await recResp.json();
       console.log('Received recommendations:', recs); // <-- CHECK THIS LOG (VERY IMPORTANT)
       setRecommendations(recs); // Update state
-
     } catch (err: any) {
       console.error('Error in handleSubmit:', err); // <-- CHECK THIS LOG FOR ANY ERRORS
       setError(err.message || 'Something went wrong');
@@ -128,14 +127,18 @@ export default function RecommendationFormPage() {
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="coursesText">
-              <Form.Label><strong>Previous Courses</strong> <span className="text-muted">(optional)</span></Form.Label>
+              <Form.Label>
+                <strong>Previous Courses</strong>
+                {' '}
+                <span className="text-muted">(optional)</span>
+              </Form.Label>
               <Form.Control
                 type="text"
                 placeholder="e.g. Algebra II, Biology"
                 value={coursesText}
                 onChange={(e) => setCoursesText(e.target.value)}
               />
-              <Form.Text className="text-center w-100 text-muted">Comma-separate courses you've taken.</Form.Text>
+              <Form.Text className="text-center w-100 text-muted">Comma-separate courses you&apos;ve taken.</Form.Text>
             </Form.Group>
 
             <div className="row">
